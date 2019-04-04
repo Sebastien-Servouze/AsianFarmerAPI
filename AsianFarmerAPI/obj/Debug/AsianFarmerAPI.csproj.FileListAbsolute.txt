@@ -71,3 +71,6 @@ C:\Users\sservouze\Code\ASP.NET\AsianFarmerAPI\AsianFarmerAPI\obj\Debug\AsianFar
 C:\Users\sservouze\Code\ASP.NET\AsianFarmerAPI\AsianFarmerAPI\obj\Debug\AsianFarmerAPI.csproj.CopyComplete
 C:\Users\sservouze\Code\ASP.NET\AsianFarmerAPI\AsianFarmerAPI\obj\Debug\AsianFarmerAPI.dll
 C:\Users\sservouze\Code\ASP.NET\AsianFarmerAPI\AsianFarmerAPI\obj\Debug\AsianFarmerAPI.pdb
+C:\Users\sservouze\Code\ASP.NET\AsianFarmerAPI\AsianFarmerAPI\bin\HtmlAgilityPack.dll
+C:\Users\sservouze\Code\ASP.NET\AsianFarmerAPI\AsianFarmerAPI\bin\HtmlAgilityPack.pdb
+C:\Users\sservouze\Code\ASP.NET\AsianFarmerAPI\AsianFarmerAPI\bin\HtmlAgilityPack.xml
