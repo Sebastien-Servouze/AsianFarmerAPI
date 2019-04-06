@@ -13,8 +13,8 @@ namespace AsianFarmerAPI.Models
 
         public int RecipeID { get; set; }
         public Recipe Recipe { get; set; }
-        public int IngredientID { get; set; }
-        public virtual Ingredient Ingredient { get; set; }
+        public int ElementID { get; set; }
+        public virtual Element Ingredient { get; set; }
         public int Quantity { get; set; }
     }
 }

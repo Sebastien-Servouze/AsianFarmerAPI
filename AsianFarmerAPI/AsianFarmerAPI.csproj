@@ -95,11 +95,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Business\Parser.cs" />
     <Compile Include="Controllers\ParseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Ingredient.cs" />
+    <Compile Include="Models\CraftingTool.cs" />
+    <Compile Include="Models\Element.cs" />
     <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\RecipeLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

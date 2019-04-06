@@ -1,4 +1,5 @@
-﻿using AsianFarmerAPI.Models;
+﻿using AsianFarmerAPI.Business;
+using AsianFarmerAPI.Models;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
@@ -14,27 +15,10 @@ namespace AsianFarmerAPI.Controllers
         private const string URL = "https://conanexiles.gamepedia.com/";
 
         [HttpGet]
-        [Route("{ingredientName}")]
-        public void Parse(string ingredientName)
+        [Route("{name}")]
+        public void Parse(string name)
         {
-            // Récupération du document de la page @url
-            HtmlWeb web = new HtmlWeb();
-            HtmlDocument doc = web.Load(URL + ingredientName);
-
-            // Récupération de l'image
-            string imgUrl = doc.DocumentNode.SelectNodes("//body/div/div/div/div/div/div/table/tbody")[2].SelectSingleNode("//td/a/img").Attributes[1].Value;
-
-            // Récupération des recettes possible pour créer l'ingrédient
-            HtmlNodeCollection recipesNodes = doc.DocumentNode.SelectNodes("//*[@id=\"mw-content-text\"]/div/table[3]/tbody");
-
-            List<Recipe> recipes = new List<Recipe>();
-            Recipe tmp;
-            foreach (HtmlNode node in recipesNodes)
-            {
-                tmp = new Recipe();
-                tmp.Lines = new List<RecipeLine>();
-            }
-
+            List<Recipe> recipes = Parser.ParseRecipes(name);
         }
     }
 }

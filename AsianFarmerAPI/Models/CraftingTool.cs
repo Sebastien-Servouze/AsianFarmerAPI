@@ -6,13 +6,12 @@ using System.Web;
 
 namespace AsianFarmerAPI.Models
 {
-    public class Ingredient
+    public class CraftingTool
     {
         [Key]
-        public int IngredientID { get; set; }
+        public int CraftingToolID { get; set; }
 
         public string Name { get; set; }
         public string Image { get; set; }
-        public virtual ICollection<Recipe> Recipes { get; set; }
     }
 }

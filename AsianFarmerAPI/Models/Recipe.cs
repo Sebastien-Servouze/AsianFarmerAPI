@@ -11,8 +11,17 @@ namespace AsianFarmerAPI.Models
         [Key]
         public int RecipeID { get; set; }
 
-        public int IngredientID { get; set; }
-        public Ingredient Craftable { get; set; }
+        public int ElementID { get; set; }
+        public Element Product { get; set; }
+
+        public int CraftingToolID { get; set; }
+        public CraftingTool CraftingTool { get; set; }
+        
         public virtual ICollection<RecipeLine> Lines { get; set; }
+
+        public Recipe()
+        {
+            Lines = new List<RecipeLine>();
+        }
     }
 }
