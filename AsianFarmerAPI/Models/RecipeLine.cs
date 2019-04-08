@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -13,7 +14,8 @@ namespace AsianFarmerAPI.Models
 
         public int RecipeID { get; set; }
         public Recipe Recipe { get; set; }
-        public int ElementID { get; set; }
+        [ForeignKey("Ingredient")]
+        public int IngredientID { get; set; }
         public virtual Element Ingredient { get; set; }
         public int Quantity { get; set; }
     }

@@ -18,7 +18,7 @@ namespace AsianFarmerAPI.DBContexts
 
         public AsianFarmerAPIContext() : base("name=AsianFarmerAPIContext")
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<AsianFarmerAPIContext>());
+            Database.SetInitializer(new DropCreateDatabaseAlways<AsianFarmerAPIContext>());
         }
 
         public DbSet<Recipe> Recipes { get; set; }
