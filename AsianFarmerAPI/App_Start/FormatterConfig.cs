@@ -7,7 +7,7 @@ using System.Net.Http.Formatting;
 using System.Web;
 using WebApiContrib.Formatting.Jsonp;
 
-namespace BlogoAPI.App_Start
+namespace App_Start
 {
     public class FormatterConfig
     {
