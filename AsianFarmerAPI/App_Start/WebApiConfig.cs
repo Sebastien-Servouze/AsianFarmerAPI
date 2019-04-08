@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Web.Http;
 
 namespace AsianFarmerAPI
@@ -9,6 +10,9 @@ namespace AsianFarmerAPI
     {
         public static void Register(HttpConfiguration config)
         {
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
             config.EnableCors();
 
             // Itinéraires de l'API Web

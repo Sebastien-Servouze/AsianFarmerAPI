@@ -1,4 +1,5 @@
-﻿using AsianFarmerAPI.Models;
+﻿using AsianFarmerAPI.DBContexts;
+using AsianFarmerAPI.Models;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace AsianFarmerAPI.Business
     public class Parser
     {
         private const string MAIN_URL = "https://conanexiles.gamepedia.com/";
+        private static AsianFarmerAPIContext context = new AsianFarmerAPIContext();
 
         public static Element ParseElement(string elementName)
         {
@@ -24,6 +26,10 @@ namespace AsianFarmerAPI.Business
             // Récupération des différentes informations nécessaires
             element.Name = doc.DocumentNode.SelectSingleNode("//*[@id=\"mw-content-text\"]/div/table[1]/tbody/tr[1]/th").InnerText.Replace("\n", "");
             element.Image = doc.DocumentNode.SelectSingleNode("//*[@id=\"mw-content-text\"]/div/table[1]/tbody/tr[2]/td/a/img").Attributes[1].Value;
+
+            // Ajout en base
+            context.Elements.Add(element);
+            context.SaveChanges();
 
             Debug.WriteLine("Création de l'élément '" + elementName + "'");
 
