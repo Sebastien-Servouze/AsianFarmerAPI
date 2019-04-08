@@ -12,13 +12,9 @@ namespace AsianFarmerAPI.Business
     public class Parser
     {
         private const string MAIN_URL = "https://conanexiles.gamepedia.com/";
-        public static List<Element> elements = new List<Element>();
 
         public static Element ParseElement(string elementName)
         {
-            if (elements.Where(e => e.Name == elementName).Count() > 0)
-                return elements.Where(e => e.Name == elementName).First();
-
             Element element = new Element();
 
             // Chargement de la page associée
@@ -31,19 +27,12 @@ namespace AsianFarmerAPI.Business
 
             Debug.WriteLine("Création de l'élément '" + elementName + "'");
 
-            Thread.Sleep(100);
-
-            elements.Add(element);
-
             return element;
         }
 
         public static List<Recipe> ParseRecipes(string productName)
         {
             List<Recipe> recipes = new List<Recipe>();
-            
-            // On crée d'abord l'élement en lui même
-            Element product = ParseElement(productName);
 
             Debug.WriteLine("Création de la recette pour l'élément '" + productName + "'");
 
@@ -51,10 +40,8 @@ namespace AsianFarmerAPI.Business
             HtmlWeb web = new HtmlWeb();
             HtmlDocument doc = web.Load(MAIN_URL + productName);
 
-            // Récupération de l'outil de fabrication
-            //recipe.CraftingTool = new CraftingTool();
-            //recipe.CraftingTool.Name = doc.DocumentNode.SelectSingleNode("*[@id=\"mw-content-text\"]/div/table[2]/tbody/tr[1]/th/span/a").InnerText;
-            //recipe.CraftingTool.Image = doc.DocumentNode.SelectSingleNode("//*[@id=\"mw-content-text\"]/div/table[2]/tbody/tr[2]/td/a/img").Attributes[1].Value;
+            // On récupère l'élément en lui même
+            Element product = ParseElement(productName);
 
             // Récupérations des recettes possibles pour le produit
             HtmlNode sourceNode = doc.DocumentNode.SelectSingleNode("//*[@id=\"Source\"]");
@@ -78,16 +65,26 @@ namespace AsianFarmerAPI.Business
 
             // Pour chaque ligne de tableau de recette
             HtmlNodeCollection recipeContentNodes;
-            Recipe recipe;
+            Recipe recipe = null;
             RecipeLine recipeLine;
             foreach (HtmlNode recipeNode in recipesNodes)
             {
-                if (recipeNode.SelectSingleNode("td") == null)
-                    continue;
+                // Si on est sur l'outil de fabrication, on crée la recette
+                if (recipeNode.SelectSingleNode("th/big/b/a") != null)
+                {
+                    recipes.Add(new Recipe());
+                    recipe = recipes.Last();
+                    recipe.Product = product;
 
-                recipes.Add(new Recipe());
-                recipe = recipes.Last();
-                recipe.Product = product;
+                    recipe.CraftingTool = ParseElement(recipeNode.SelectSingleNode("th/big/b/a").InnerText);
+
+                    continue;
+                }
+                // Si on est pas sur une ligne normale (avec des td)
+                if (recipeNode.SelectNodes("td") == null)
+                {
+                    continue;
+                }
 
                 // On récupère toutes les lignes de recettes
                 recipeContentNodes = recipeNode.SelectSingleNode("td").ChildNodes;
@@ -98,12 +95,9 @@ namespace AsianFarmerAPI.Business
                 {
                     recipe.Lines.Add(new RecipeLine());
                     recipeLine = recipe.Lines.Last();
+                    recipeLine.Recipe = recipe;
                     recipeLine.Quantity = int.Parse(recipeContentNodes[i].InnerText);
                     recipeLine.Ingredient = ParseElement(recipeContentNodes[i + 3].InnerText);
-
-                    // On en profite pour parser sa recette
-                    // TODO: si on ne la connait pas déjà
-                    recipes.AddRange(ParseRecipes(recipeContentNodes[i + 3].InnerText));
                 }
             }
 

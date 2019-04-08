@@ -15,7 +15,7 @@ namespace AsianFarmerAPI.Models
         public Element Product { get; set; }
 
         public int CraftingToolID { get; set; }
-        public CraftingTool CraftingTool { get; set; }
+        public Element CraftingTool { get; set; }
         
         public virtual ICollection<RecipeLine> Lines { get; set; }
 

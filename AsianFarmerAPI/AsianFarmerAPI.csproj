@@ -100,7 +100,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CraftingTool.cs" />
     <Compile Include="Models\Element.cs" />
     <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\RecipeLine.cs" />
