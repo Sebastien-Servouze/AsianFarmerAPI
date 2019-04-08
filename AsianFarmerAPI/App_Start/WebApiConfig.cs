@@ -9,7 +9,7 @@ namespace AsianFarmerAPI
     {
         public static void Register(HttpConfiguration config)
         {
-            // Configuration et services API Web
+            config.EnableCors();
 
             // Itinéraires de l'API Web
             config.MapHttpAttributeRoutes();
