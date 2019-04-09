@@ -78,10 +78,10 @@ namespace AsianFarmerAPI.Business
         {
             List<Recipe> recipes = new List<Recipe>();
 
-            Debug.WriteLine("Création de la recette pour l'élément '" + productName + "'");
-
             // On parse ensuite les lignes de recette nécessaires pour crafter le produit
             HtmlDocument doc = GetHtml(productName);
+
+            Debug.WriteLine("Création de la recette pour l'élément '" + productName + "'");
 
             // On récupère l'élément en lui même
             Element product = await ParseElement(productName);

@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System;
+using System.Web.Http.Cors;
 
 namespace AsianFarmerAPI.Controllers
 {
@@ -19,15 +20,22 @@ namespace AsianFarmerAPI.Controllers
         [Route("{name}")]
         public async Task<IHttpActionResult> GetRecipes(string name)
         {
-            List<Recipe> recipes;
-            try
+            List<Recipe> recipes = await db.Recipes.Where(r => r.Product.Name == name).ToListAsync();
+            if (!recipes.Any())
             {
-                recipes = await Parser.ParseRecipes(name);
-                return Ok(recipes);
+                try
+                {
+                    recipes = await Parser.ParseRecipes(name);
+                    return Ok(recipes);
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
             }
-            catch (Exception)
+            else
             {
-                return NotFound();
+                return Ok(recipes);
             }
         }
 
