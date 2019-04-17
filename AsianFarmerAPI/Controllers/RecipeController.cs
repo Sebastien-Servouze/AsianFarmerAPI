@@ -20,7 +20,10 @@ namespace AsianFarmerAPI.Controllers
         [Route("{name}")]
         public async Task<IHttpActionResult> GetRecipes(string name)
         {
-            List<Recipe> recipes = await db.Recipes.Where(r => r.Product.Name == name).ToListAsync();
+            string loweredName = name.ToLower();
+            string trimmedAndLoweredName = loweredName.Replace(" ", "");
+
+            List<Recipe> recipes = await db.Recipes.Where(r => r.Product.Name.ToLower() == loweredName || r.Product.Name.ToLower().Replace(" ", "") == trimmedAndLoweredName).ToListAsync();
             if (!recipes.Any())
             {
                 try
